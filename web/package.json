@@ -1,0 +1,28 @@
+{
+  "name": "video-a-and-m-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Video A&M: installable, local-only browser video editor (PWA)",
+  "scripts": {
+    "dev": "vite",
+    "check-files": "node scripts/check-required-files.mjs",
+    "prebuild": "node scripts/check-required-files.mjs",
+    "build": "tsc --noEmit && vite build",
+    "postbuild": "node scripts/check-required-files.mjs dist",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "icons": "node scripts/make-icons.mjs"
+  },
+  "dependencies": {
+    "@mediabunny/aac-encoder": "^1.66.3",
+    "mediabunny": "^1.66.3",
+    "preact": "^11.2.0"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.6",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vite-plugin-pwa": "^2.0.0"
+  }
+}

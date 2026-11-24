@@ -1,0 +1,38 @@
+{
+  "note": "EXAMPLE ENTRIES ONLY. These titles and artists are placeholders, and NO audio files are included. To ship real music: put a CC0 / royalty-free audio file in web/public/music/, add an entry whose \"file\" matches its name, fill in the real title/artist/genre/duration/license, and remove \"example\": true. Users can also add their own files in the app (Add audio).",
+  "tracks": [
+    {
+      "id": "example-upbeat-01",
+      "title": "Example – Upbeat Intro (placeholder)",
+      "artist": "Replace with real artist",
+      "genre": "Upbeat",
+      "duration": 0,
+      "license": "EXAMPLE – replace with the real license (e.g. CC0 1.0)",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "file": "example-upbeat-01.mp3",
+      "example": true
+    },
+    {
+      "id": "example-chill-01",
+      "title": "Example – Chill Background (placeholder)",
+      "artist": "Replace with real artist",
+      "genre": "Chill",
+      "duration": 0,
+      "license": "EXAMPLE – replace with the real license",
+      "licenseUrl": null,
+      "file": "example-chill-01.mp3",
+      "example": true
+    },
+    {
+      "id": "example-cinematic-01",
+      "title": "Example – Cinematic Build (placeholder)",
+      "artist": "Replace with real artist",
+      "genre": "Cinematic",
+      "duration": 0,
+      "license": "EXAMPLE – replace with the real license",
+      "licenseUrl": null,
+      "file": "example-cinematic-01.mp3",
+      "example": true
+    }
+  ]
+}

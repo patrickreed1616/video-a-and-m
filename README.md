@@ -20,7 +20,73 @@ Minimal and clean: simple and effective, not feature-bloated. All processing run
 - macOS 14 or later
 - Xcode 15 or later
 
-> **Status: scaffold, not yet compiled.** This was written on a Linux machine. Every file passes a
+## Web app (runs in the browser, installable)
+
+The `web/` folder has a second version of Video A&M that runs entirely in the browser. You can install it like an
+app from Chrome, Edge or Safari. It has the same features as the Mac app: preview, toolbar, a video track over an
+audio track, drag-and-drop import, split, trim, delete with undo, lighting sliders, the music sidebar, and MP4 export
+for YouTube. **Nothing is uploaded.** Files are read, edited and encoded on your own computer.
+
+**Run it locally**
+
+```bash
+cd web
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # required-files check → type-check → production build in web/dist → check the build
+npm run preview    # serve the built app (service worker and install work here too)
+```
+
+**Install it as an app**
+
+* Chrome / Edge: click **Install** in the app's toolbar, or the install icon in the address bar.
+* Safari on macOS 14+: **File → Add to Dock**.
+* Once installed it opens in its own window and the app shell works offline. On Chrome and Edge you can also open
+  `.mp4`, `.mov` and `.m4v` files with it from the OS.
+
+**How it's built**
+
+| Part | Choice | Why |
+|---|---|---|
+| App | Vite + TypeScript + Preact | Fast builds, strict types. Preact gives React-style components in ~4 kB |
+| Preview | `<video>`/`<audio>` elements + WebGL shader | Hardware decoding for smooth playback. One shader handles exposure, brightness, contrast and saturation in both preview and export |
+| Import / decode | [Mediabunny](https://mediabunny.dev) (`Input`, `CanvasSink`) | Reads MP4/MOV, and decodes exact frames with WebCodecs for export and thumbnails |
+| Export | WebCodecs `VideoEncoder` + Mediabunny MP4 muxer | H.264 High profile (`avc1.64xxxx`), exact bitrate, keyframe every 0.5 s, fast-start MP4 |
+| Audio | `OfflineAudioContext` mix → AAC-LC 48 kHz stereo 384 kbps | Uses native AAC when the browser has it, otherwise `@mediabunny/aac-encoder` (FFmpeg's AAC in WASM, loaded only when needed). No SharedArrayBuffer and no COOP/COEP headers needed |
+| Saving | `showSaveFilePicker` (Chrome/Edge) streams straight to disk; other browsers get a download | Big exports never sit in memory when the File System Access API is there |
+| Offline / install | `vite-plugin-pwa` (Workbox) + web manifest + icons in `web/public/icons` (made by `npm run icons`) | Installable app shell that works offline |
+
+Export presets match the Mac app: 720p30 5 Mbps, **1080p30 10 Mbps (default)**, 1080p60 12 Mbps, 4K30 40 Mbps.
+Portrait projects swap width and height.
+
+**Music in the web app:** `web/public/music/catalog.json` has the same clearly labelled *example* entries and no
+audio. They show as "No file yet". Click **Add audio** in the Music sidebar to add your own royalty-free files.
+They're stored in the browser (IndexedDB) on that device only. To bundle real tracks, put the files in
+`web/public/music/`, add matching catalog entries, and remove `"example": true`. A Freesound source stub
+(`FreesoundSource` in `web/src/music/musicLibrary.ts`) implements the same `MusicSource` interface for later.
+
+**Browser support**
+
+| Browser | Editing & preview | Export |
+|---|---|---|
+| Chrome / Edge (desktop, current) | ✅ | ✅ H.264 High + AAC. Saves straight to disk |
+| Safari 26+ (macOS) | ✅ | Should work (WebCodecs H.264). AAC uses the WASM encoder if needed. Downloads instead of the save dialog. **Not tested yet** |
+| Safari 16.4–18 | ✅ | Likely: WebCodecs video is there and AAC goes through the WASM encoder. **Not tested yet** |
+| Firefox (desktop, current) | ✅ | Works only if Firefox's WebCodecs can encode H.264 on that OS (AAC goes through WASM). Otherwise the export dialog says it can't. **Not tested yet** |
+
+The export dialog checks what the browser supports and explains anything missing. If High profile isn't available,
+it falls back to another H.264 profile. Exports take memory for long or 4K projects, because audio is mixed in one
+pass and browsers without the save dialog build the file in memory.
+
+**Web app: still to build:** save/open projects, reordering video clips by dragging, a clip volume slider and
+waveforms, per-clip lighting, the Freesound source, an ffmpeg.wasm fallback for browsers without H.264 encoding,
+and testing on Safari and Firefox.
+
+---
+
+## Mac app (SwiftUI)
+
+> **Status (Mac app): scaffold, not yet compiled.** This was written on a Linux machine. Every file passes a
 > Swift syntax parse and the model layer type-checks, but the AVFoundation/SwiftUI code has **never
 > been built or run on a Mac**. Expect a few compiler fixes on the first build.
 
