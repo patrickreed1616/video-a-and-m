@@ -1,0 +1,38 @@
+{
+  "note": "EXAMPLE ENTRIES ONLY. These titles/artists are placeholders and the audio files are NOT included. Replace each entry with a real CC0 / royalty-free track you have downloaded, put the audio file in this folder with the same name as \"file\", and set \"example\" to false. See README > Music library.",
+  "tracks": [
+    {
+      "id": "example-upbeat-01",
+      "title": "Example – Upbeat Intro (placeholder)",
+      "artist": "Replace with real artist",
+      "genre": "Upbeat",
+      "duration": 0,
+      "license": "EXAMPLE – replace with the real license (e.g. CC0 1.0)",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "file": "example-upbeat-01.mp3",
+      "example": true
+    },
+    {
+      "id": "example-chill-01",
+      "title": "Example – Chill Background (placeholder)",
+      "artist": "Replace with real artist",
+      "genre": "Chill",
+      "duration": 0,
+      "license": "EXAMPLE – replace with the real license",
+      "licenseURL": null,
+      "file": "example-chill-01.m4a",
+      "example": true
+    },
+    {
+      "id": "example-cinematic-01",
+      "title": "Example – Cinematic Build (placeholder)",
+      "artist": "Replace with real artist",
+      "genre": "Cinematic",
+      "duration": 0,
+      "license": "EXAMPLE – replace with the real license",
+      "licenseURL": null,
+      "file": "example-cinematic-01.mp3",
+      "example": true
+    }
+  ]
+}

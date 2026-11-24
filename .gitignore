@@ -66,3 +66,21 @@ fastlane/test_output
 *.xcodeproj/xcuserdata/
 *.xcworkspace/xcuserdata/
 DerivedData/
+
+# Video A&M: XcodeGen-generated project and Info.plist
+*.xcodeproj/
+*.xcworkspace/
+build/
+VideoAandM/Info.plist
+
+# Audio you add locally (keep licenses in catalog.json; commit audio only if you have the right to redistribute it)
+VideoAandM/Resources/Music/*.mp3
+VideoAandM/Resources/Music/*.m4a
+VideoAandM/Resources/Music/*.wav
+VideoAandM/Resources/Music/*.aif
+VideoAandM/Resources/Music/*.aiff
+VideoAandM/Resources/Music/*.caf
+
+# Exports
+*.mp4
+*.mov
